@@ -1,0 +1,197 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> controller/auth.controller.js</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>controller/auth.controller.js</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const User = require('../model/user.model');
+
+
+/**
+ * @component Test
+ * @category Controller
+ * @subcategory Auth Controller
+ * 
+ * @function signup
+ * @description Create a new user with login and crypted password
+ * @async
+ * 
+ * @param {Object} req - Request object passed by express
+ * @param {Object} req.body - Formated body request as json
+ * @param {String} req.body.email - User email
+ * @param {String} req.body.password - User password
+ * @param {Object} res - Response object passed by express
+ * 
+ * @return {Void}
+ * 
+ */
+
+exports.signup = async (req, res, next) => {
+  try {
+
+    const {email, password} = req.body;
+    const cryptedPassword = await bcrypt.hash(password, 10);
+    const user = new User({email, password : cryptedPassword});
+
+    await user.save()
+
+    res.status(201).json({message : 'User created successfully'});
+
+  } catch (error) {
+    res.status(400).json({message : 'Oops something went wrong'})
+  }
+}
+
+
+
+/**
+ * @category Controller
+ * @subcategory Auth
+ * 
+ * @function login
+ * @description Check user input email and password to allow login
+ * @async
+ * 
+ * @param {Object} req - Request object passed by express
+ * @param {Object} req.body - Formated request body as json
+ * @param {String} req.body.email - Input email
+ * @param {String} req.body.password - Input password
+ * @param {Object} res - Response object passed by express
+ * 
+ * @return {Void}
+ * 
+ */
+
+exports.login = async (req, res) => {
+    try {
+        const {email, password} = req.body;
+
+        //*Check user
+        const user = await User.findOne({email});
+        if(!user) throw res.status(401).json({message : 'User not found'});
+
+        //*Check password
+        const validPassword = await bcrypt.compare(password, user.password);
+        if(!validPassword) throw res.status(401).json({message : 'Wrong password !'})
+
+        //*Create token
+        const token = jwt.sign({userId : user._id}, process.env.SECRET_TOKEN, {expiresIn : '24h'});
+        res.status(200).json({userId : user._id, token});
+
+
+    } catch (error) {
+        res.status(500).json({message : error})
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.10</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

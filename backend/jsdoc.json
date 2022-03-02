@@ -1,0 +1,22 @@
+{
+    "source" : {
+        "include" : ["./src"],
+        "includePattern" : ".js$",
+        "excludePattern" : "node_modules"
+    },
+    "plugins" : ["plugins/markdown","node_modules/better-docs/category"],
+    "tags" : {
+        "allowUnknownTags" : true
+    },
+    "template" : {
+        "cleverLinks" : true,
+        "monoSpaceLinks" : true
+    },
+    "opts" : {
+        "recurse" : true,
+        "destination" : "./docs",
+        "template" : "node_modules/better-docs",
+        "controller" : "./src/controller"
+    }
+
+}
