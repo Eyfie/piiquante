@@ -34,7 +34,7 @@ exports.signup = async (req, res, next) => {
     res.status(201).json({message : 'User created successfully'});
 
   } catch (error) {
-    res.status(400).json({message : 'Oops something went wrong'})
+    res.status(400).json({message : 'User already exist'});
   }
 }
 
@@ -68,7 +68,7 @@ exports.login = async (req, res) => {
 
         //*Check password
         const validPassword = await bcrypt.compare(password, user.password);
-        if(!validPassword) throw res.status(401).json({message : 'Wrong password !'})
+        if(!validPassword) throw res.status(401).json({message : 'Wrong password !'});
 
         //*Create token
         const token = jwt.sign({userId : user._id}, process.env.SECRET_TOKEN, {expiresIn : '24h'});
@@ -76,6 +76,6 @@ exports.login = async (req, res) => {
 
 
     } catch (error) {
-        res.status(500).json({message : error})
+        res.status(500).json({message : "Something, somewhere, was very wrong..."});
     }
 }

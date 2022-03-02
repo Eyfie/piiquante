@@ -1,5 +1,6 @@
 const sauce = require('../controller/sauce.controller');
 const isAuth = require('../middleware/isAuth');
+const { single } = require('../middleware/multer');
 const imgUpload = require('../middleware/multer');
 const router =  require('express').Router();
 
@@ -8,8 +9,8 @@ router.get('/', sauce.getAllSauces);
 
 //* Handling CRUD
 router.get('/:id', sauce.getSauce);
-router.post('/', imgUpoad, sauce.createSauce);
-router.put('/:id', isAuth, imgUpload, sauce.modifySauce);
+router.post('/', imgUpload.single('image'), sauce.createSauce);
+router.put('/:id', isAuth, imgUpload.single('image'), sauce.modifySauce);
 router.delete('/:id', isAuth, sauce.deleteSauce);
 
 //* Likes handler

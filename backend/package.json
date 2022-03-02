@@ -7,7 +7,6 @@
     "start": "node server",
     "start-dev": "nodemon server",
     "docs": "jsdoc -c jsdoc.json --readme ./README.md",
-    "doc": "jsdoc --destination ./doc --recurse . --configure .jsdoc.conf.json",
     "generate-docs": "/doc -c jsdoc.json"
   },
   "author": "",

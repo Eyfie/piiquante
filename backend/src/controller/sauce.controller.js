@@ -72,10 +72,10 @@ exports.getSauce = async (req, res, next) => {
 
 exports.createSauce = async (req, res, next) => {
     try {
-          
+        
         const sauce = await new Sauce({
             ...JSON.parse(req.body.sauce),
-            imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+            imageUrl : `${req.protocol}://${req.get('host')}/backend/public/images/${req.file.filename}`
         });
 
         await sauce.save()
@@ -110,6 +110,7 @@ exports.modifySauce = async (req, res, next) => {
         const {id} = req.params;
         const {auth} = req;
 
+        
         const data = req.file ? 
         {
             ...JSON.parse(req.body.sauce),
@@ -117,16 +118,14 @@ exports.modifySauce = async (req, res, next) => {
         } : {...req.body};
 
         //*Check if sauce exist
-        const sauce = Sauce.findById(id);
+        const sauce = await Sauce.findById(id);
         if(!sauce) throw res.status(404).json({message :'Sauce not found !'});
 
         //*Check if user is authorized to change the sauce
         if(sauce.userId != auth.userId) throw res.status(403).json({message : `${req.body.name} n'est pas votre sauce !`});
-
-        if(req.file) 
-
  
-        Sauce.updateOne({_id : id}, {...req.body});
+
+        Sauce.updateOne({_id : id}, data);
 
     } catch (error) {
         res.status(400).json({message : 'Bad Request !'})
