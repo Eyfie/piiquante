@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('fs/promises');
 const Sauce = require('../model/sauce.model');
 
 
@@ -72,18 +72,20 @@ exports.getSauce = async (req, res, next) => {
 
 exports.createSauce = async (req, res, next) => {
     try {
-        
-        const sauce = await new Sauce({
+        console.log(req.file.filename);
+        const sauce = new Sauce({
             ...JSON.parse(req.body.sauce),
-            imageUrl : `${req.protocol}://${req.get('host')}/backend/public/images/${req.file.filename}`
+            imageUrl : `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
         });
+
+        console.log(req.file.mimetype);
 
         await sauce.save()
 
         res.status(200).json({message : 'Sauce created !'});
 
     } catch (error) {
-        res.status(400).json({message : 'Oops something went wrong !'})
+        res.status(400).json({message : 'Sauce creation went wrong !'})
     }
 }
 
@@ -105,7 +107,7 @@ exports.createSauce = async (req, res, next) => {
  */
 
 exports.modifySauce = async (req, res, next) => {
-    try {
+   try {
         
         const {id} = req.params;
         const {auth} = req;
@@ -123,13 +125,17 @@ exports.modifySauce = async (req, res, next) => {
 
         //*Check if user is authorized to change the sauce
         if(sauce.userId != auth.userId) throw res.status(403).json({message : `${req.body.name} n'est pas votre sauce !`});
- 
+        
+        //*Check if there is an image in the request and remove the old one if it's the case
+        if(req.file) await fs.unlink(`public/images/${sauce.imageUrl.split('/images/')[1]}`)
 
-        Sauce.updateOne({_id : id}, data);
+        await sauce.updateOne(data);
 
-    } catch (error) {
-        res.status(400).json({message : 'Bad Request !'})
-    }
+        res.status(200).json({message : 'Sauce updated successfully !'});
+
+   } catch (error) {
+         res.status(400).json({message : 'Sauce update went wrong !'})
+   }
 }
 
 
@@ -145,28 +151,80 @@ exports.modifySauce = async (req, res, next) => {
  * @param {Object} req 
  * @param {Object} req.auth - Object containing information about the user input that launched the request
  * @param {String} req.auth.userId - ID of the user that launched the input
- * @param {String} req.userId - User ID of the sauce creator
  * 
  * @return {Void}
  */
 
 exports.deleteSauce = async (req, res, next) => {
     try {
+        const {id} = req.params
+        const {auth} = req;
 
         //*Check if the sauce exist
         const sauce = await Sauce.findById(id);
         if(!sauce) throw res.status(404).json({message : 'Sauce not found !'});
 
         //*Check if user is the one that created the sauce
-        if(sauce.userId !== req.auth.userId) throw res.status(403).json({message : 'Unauthorized request !'});
-
-        //* Delete the sauce
+        if(sauce.userId !== auth.userId) throw res.status(403).json({message : 'Unauthorized request !'});
+    
+        //* Delete the sauce and sauce img
+        await fs.unlink(`public/images/${sauce.imageUrl.split('/images/')[1]}`); 
         await Sauce.deleteOne({_id : id});
         res.status(201).json({message : 'Sauce deleted'});
 
+
+
+
     } catch (error) {
-        res.status(400).json({message : 'error'});
+        res.status(400).json({message : 'Deleting sauce went wrong'});
     }
+}
+
+
+
+exports.likeSauce = async (req, res, next) => {
+  try {
+    const {id} = req.params;
+    const {userId} = req.body;
+    const {like} = req.body;
+
+    const sauce = await Sauce.findById(id);
+
+    let {usersLiked, usersDisliked} = sauce;
+
+    //* Check [usersLiked] and add userId if necessary, remove userId from [usersDisliked]
+    if(like == 1){
+        usersLiked = usersLiked.includes(userId) ? usersLiked : [...usersLiked, userId];
+        usersDisliked = usersDisliked.slice(userId);
+    } 
+
+    //* Remove userId from [usersLiked] and [usersDisliked]
+    if(like == 0){
+        usersLiked = usersLiked.slice(userId);
+        usersDisliked = usersDisliked.slice(userId);
+    }
+
+    //* Check [usersDisliked] and add userId if necessary, remove userId from [usersLiked]
+    if(like == -1){
+        usersDisliked = usersDisliked.includes(userId) ? usersDisliked : [...usersDisliked, userId];
+        usersLiked = usersLiked.slice(userId);
+    }
+    
+
+    const likes = usersLiked.length;
+    const dislikes = usersDisliked.length;
+
+
+    await sauce.updateOne({usersLiked, usersDisliked, likes, dislikes});
+
+    res.status(200).json({message : 'Sauce liked / disliked !'})
+
+  } catch (error) {
+      res.status(400).json({message : 'Sauce like went wrong !'});
+  }
+
+
+
 }
 
 
