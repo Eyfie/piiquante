@@ -68,7 +68,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#likeSauce">likeSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
                 
             </nav>
         </div>
@@ -90,10 +90,11 @@
  * @category Middleware
  * 
  * 
- * @description Check if subscription email and password are valid
+ * @description Check if sign up email and password are valid
  * @param {Object} req - Object de requête envoyé par express
- * @param {String} req.email - Input email
- * @param {String} req.password - Input password
+ * @param {Object} req.body - Formated request body as json
+ * @param {String} req.body.email - Input email
+ * @param {String} req.body.password - Input password
  * @module userValidation
  * 
  */
@@ -103,16 +104,22 @@ module.exports = async (req, res, next) => {
 
         const {email, password} = req.body;
 
-        const regex = {
-            email : /^[a-zA-Z0-9.!#$%&amp;'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            //TODO Password regex fucking sucks change it (1MAJ, 1Min, 1NUmber, 1SpecChar, 8Length)
-            password : /^[0-9A-Za-zÀ-ÿ-', ]{8,}$/g
+        const verify = {
+            email : {
+                regex : /^[a-zA-Z0-9.!#$%&amp;'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message : 'Email non valide !'
+            },
+            password : {
+               regex :  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,36}$/g,
+               message : 'Votre mot de passe doit contenir 8 caractères au minimum dont 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial'
+            }
         }
 
-        const isEmailValid = await email.match(regex.email);
-        const isPasswordValid = await password.match(regex.password);
+        const isEmailValid = await email.match(verify.email.regex);
+        const isPasswordValid = await password.match(verify.password.regex);
 
-        if(!isPasswordValid || !isEmailValid) throw error = res.status(400).json({message : 'Bad request'});
+        if(!isEmailValid) throw error = res.status(400).json(verify.email.message);
+        if(!isPasswordValid) throw error = res.status(400).json(verify.password.message);
 
         next()
 

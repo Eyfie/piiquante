@@ -15,8 +15,8 @@ const storage = multer.diskStorage({
     }
 })
 
+
 const isValidFormat =  (req, file, cb) => {
-    console.log(file)
     if(!WHITELIST.includes(file.mimetype)) return cb(new Error('File type not allowed !'), false);
     cb(null, true); 
 };

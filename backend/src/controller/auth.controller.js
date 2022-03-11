@@ -21,8 +21,7 @@ const User = require('../model/user.model');
  * @return {Void}
  * 
  */
-
-exports.signup = async (req, res, next) => {
+exports.signup = async (req, res) => {
   try {
 
     const {email, password} = req.body;
@@ -37,7 +36,6 @@ exports.signup = async (req, res, next) => {
     res.status(400).json({message : 'User already exist'});
   }
 }
-
 
 
 /**
@@ -57,7 +55,6 @@ exports.signup = async (req, res, next) => {
  * @return {Void}
  * 
  */
-
 exports.login = async (req, res) => {
     try {
         const {email, password} = req.body;

@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#likeSauce">likeSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
                 
             </nav>
         </div>
@@ -142,7 +142,7 @@
   <td class="type">
   
       
-<code class="param-type">*</code>
+<code class="param-type">Object</code>
 
 
   
@@ -152,22 +152,21 @@
 
   
 
-  <td class="description last"></td>
+  <td class="description last"><p>Request object passed by express</p></td>
 </tr>
 
-
-        
-
-            
-<tr class="deep-level-0">
   
-      <td class="name"><code>res</code></td>
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>headers</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">*</code>
+<code class="param-type">Object</code>
 
 
   
@@ -177,22 +176,20 @@
 
   
 
-  <td class="description last"></td>
+  <td class="description last"><p>Request headers</p></td>
 </tr>
 
-
-        
-
-            
-<tr class="deep-level-0">
   
-      <td class="name"><code>next</code></td>
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>headers.authorization</code></td>
   
 
   <td class="type">
   
       
-<code class="param-type">*</code>
+<code class="param-type">String</code>
 
 
   
@@ -202,8 +199,33 @@
 
   
 
-  <td class="description last"></td>
+  <td class="description last"><p>Bearer authorization</p></td>
 </tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>auth</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Object containing all token user token information</p></td>
+</tr>
+
+  
 
 
         
@@ -272,6 +294,33 @@
 
 
 
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    <div class='param-desc column is-7'><ul>
+<li>Request body with the added decoded token data in req.auth</li>
+</ul></div>
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Object</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
 
 
 

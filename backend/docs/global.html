@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#likeSauce">likeSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
                 
             </nav>
         </div>
@@ -232,8 +232,103 @@
 
   
 
-  <td class="description last"></td>
+  <td class="description last"><p>Request body sent by express</p></td>
 </tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Formated request body as json</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body.sauce</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">String</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>All information of the sauce</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>file</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Object containing all information about the sauce img</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>file.filename</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">String</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Formated name of the sauce image</p></td>
+</tr>
+
+  
 
 
         
@@ -280,7 +375,7 @@
         <p class="tag-source">
             <a href="controller_sauce.controller.js.html" class="button">View Source</a>
             <span>
-                <a href="controller_sauce.controller.js.html">controller/sauce.controller.js</a>, <a href="controller_sauce.controller.js.html#line61">line 61</a>
+                <a href="controller_sauce.controller.js.html">controller/sauce.controller.js</a>, <a href="controller_sauce.controller.js.html#line58">line 58</a>
             </span>
         </p>
     
@@ -407,7 +502,7 @@
 
   
 
-  <td class="description last"></td>
+  <td class="description last"><p>Request body sent by express</p></td>
 </tr>
 
   
@@ -458,6 +553,52 @@
 </tr>
 
   
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>params</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Object containing URL's parameters</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>params.id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">String</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>ID of the sauce</p></td>
+</tr>
+
+  
 
 
         
@@ -504,7 +645,7 @@
         <p class="tag-source">
             <a href="controller_sauce.controller.js.html" class="button">View Source</a>
             <span>
-                <a href="controller_sauce.controller.js.html">controller/sauce.controller.js</a>, <a href="controller_sauce.controller.js.html#line143">line 143</a>
+                <a href="controller_sauce.controller.js.html">controller/sauce.controller.js</a>, <a href="controller_sauce.controller.js.html#line145">line 145</a>
             </span>
         </p>
     
@@ -832,7 +973,7 @@
 
   
 
-  <td class="description last"><p>Object containing URL and its parameters</p></td>
+  <td class="description last"><p>Object containing URL's parameters</p></td>
 </tr>
 
   
@@ -970,6 +1111,299 @@
         <label>Type: </label>
         
 <code class="param-type">Object</code>
+
+
+    </div>
+    
+</div>
+
+                
+        </div>
+    </div>
+
+
+
+
+</div>
+            
+                <div class="member">
+
+
+    
+    <h4 class="name" id="likeSauce">
+        <a class="href-link" href="#likeSauce">#</a>
+        
+            
+                <span class='tag'>async</span>
+            
+        
+        <span class="code-name">
+            
+                likeSauce<span class="signature">(req)</span><span class="type-signature"> &rarr; {Void}</span>
+            
+        </span>
+    </h4>
+    
+
+    
+    
+    <div class="description">
+        <p>Handle the likes and dislikes on the sauce</p>
+    </div>
+    
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+<div class="table-container">
+    <table class="params table">
+        <thead>
+        <tr>
+            
+            <th>Name</th>
+            
+
+            <th>Type</th>
+
+            
+
+            
+
+            <th class="last">Description</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        
+
+            
+<tr class="deep-level-0">
+  
+      <td class="name"><code>req</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Request body sent by express</p></td>
+</tr>
+
+  
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Formated request body as json</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body.userId</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">String</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>ID of user liking the sauce</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body.like</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Number</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Value of 1, 0 or -1 indicating respectively like, unlike/undislike, dislike sent by user</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>params</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Object containing URL's parameters</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>params.id</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">String</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>ID of the sauce</p></td>
+</tr>
+
+  
+
+
+        
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    
+
+    
+
+    
+
+    
+        <p class="tag-source">
+            <a href="controller_sauce.controller.js.html" class="button">View Source</a>
+            <span>
+                <a href="controller_sauce.controller.js.html">controller/sauce.controller.js</a>, <a href="controller_sauce.controller.js.html#line184">line 184</a>
+            </span>
+        </p>
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class='columns method-parameter'>
+        <div class="column is-2"><label>Returns:</label></div>
+        <div class="column is-10">
+            
+                    
+
+<div class="columns">
+    
+    
+    <div class='column is-5 has-text-left'>
+        <label>Type: </label>
+        
+<code class="param-type">Void</code>
 
 
     </div>
@@ -1206,7 +1640,7 @@
         <p class="tag-source">
             <a href="controller_auth.controller.js.html" class="button">View Source</a>
             <span>
-                <a href="controller_auth.controller.js.html">controller/auth.controller.js</a>, <a href="controller_auth.controller.js.html#line43">line 43</a>
+                <a href="controller_auth.controller.js.html">controller/auth.controller.js</a>, <a href="controller_auth.controller.js.html#line41">line 41</a>
             </span>
         </p>
     
@@ -1333,10 +1767,56 @@
 
   
 
-  <td class="description last"></td>
+  <td class="description last"><p>Request body sent by express</p></td>
 </tr>
 
   
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Formated request body as json</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body.sauce</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">String</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>All information of the sauce</p></td>
+</tr>
+
   
     
 <tr class="deep-level-1">
@@ -1357,7 +1837,7 @@
 
   
 
-  <td class="description last"><p>Object containing URL and its parameters</p></td>
+  <td class="description last"><p>Object containing URL's parameters</p></td>
 </tr>
 
   
@@ -1430,6 +1910,52 @@
 </tr>
 
   
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>file</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Object containing all information about the sauce img</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>file.filename</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">String</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Formated name of the sauce image</p></td>
+</tr>
+
+  
 
 
         
@@ -1476,7 +2002,7 @@
         <p class="tag-source">
             <a href="controller_sauce.controller.js.html" class="button">View Source</a>
             <span>
-                <a href="controller_sauce.controller.js.html">controller/sauce.controller.js</a>, <a href="controller_sauce.controller.js.html#line93">line 93</a>
+                <a href="controller_sauce.controller.js.html">controller/sauce.controller.js</a>, <a href="controller_sauce.controller.js.html#line92">line 92</a>
             </span>
         </p>
     

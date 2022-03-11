@@ -3,10 +3,11 @@
  * @category Middleware
  * 
  * 
- * @description Check if subscription email and password are valid
+ * @description Check if sign up email and password are valid
  * @param {Object} req - Object de requête envoyé par express
- * @param {String} req.email - Input email
- * @param {String} req.password - Input password
+ * @param {Object} req.body - Formated request body as json
+ * @param {String} req.body.email - Input email
+ * @param {String} req.body.password - Input password
  * @module userValidation
  * 
  */
@@ -16,16 +17,22 @@ module.exports = async (req, res, next) => {
 
         const {email, password} = req.body;
 
-        const regex = {
-            email : /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-            //TODO Password regex fucking sucks change it (1MAJ, 1Min, 1NUmber, 1SpecChar, 8Length)
-            password : /^[0-9A-Za-zÀ-ÿ-', ]{8,}$/g
+        const verify = {
+            email : {
+                regex : /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message : 'Email non valide !'
+            },
+            password : {
+               regex :  /^(?=.*\d)(?=.*[A-Z])(?=.*[a-z])(?=.*[^\w\d\s:])([^\s]){8,36}$/g,
+               message : 'Votre mot de passe doit contenir 8 caractères au minimum dont 1 majuscule, 1 minuscule, 1 chiffre et 1 caractère spécial'
+            }
         }
 
-        const isEmailValid = await email.match(regex.email);
-        const isPasswordValid = await password.match(regex.password);
+        const isEmailValid = await email.match(verify.email.regex);
+        const isPasswordValid = await password.match(verify.password.regex);
 
-        if(!isPasswordValid || !isEmailValid) throw error = res.status(400).json({message : 'Bad request'});
+        if(!isEmailValid) throw error = res.status(400).json(verify.email.message);
+        if(!isPasswordValid) throw error = res.status(400).json(verify.password.message);
 
         next()
 

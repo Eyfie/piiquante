@@ -66,7 +66,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"></div><div class="category"><h2>Controller</h2><h3>Global</h3><ul><li><a href="global.html#createSauce">createSauce</a></li><li><a href="global.html#deleteSauce">deleteSauce</a></li><li><a href="global.html#getAllSauces">getAllSauces</a></li><li><a href="global.html#getSauce">getSauce</a></li><li><a href="global.html#likeSauce">likeSauce</a></li><li><a href="global.html#login">login</a></li><li><a href="global.html#modifySauce">modifySauce</a></li><li><a href="global.html#signup">signup</a></li></ul></div><div class="category"><h2>Middleware</h2><h3>Modules</h3><ul><li><a href="module-isAuth.html">isAuth</a></li><li><a href="module-userValidation.html">userValidation</a></li></ul></div>
                 
             </nav>
         </div>
@@ -95,7 +95,7 @@
     <div class="container-overview">
     
         
-            <div class="description"><p>Check if subscription email and password are valid</p></div>
+            <div class="description"><p>Check if sign up email and password are valid</p></div>
         
 
         
@@ -160,7 +160,30 @@
     
 <tr class="deep-level-1">
   
-      <td class="name"><code>email</code></td>
+      <td class="name"><code>body</code></td>
+  
+
+  <td class="type">
+  
+      
+<code class="param-type">Object</code>
+
+
+  
+  </td>
+
+  
+
+  
+
+  <td class="description last"><p>Formated request body as json</p></td>
+</tr>
+
+  
+    
+<tr class="deep-level-1">
+  
+      <td class="name"><code>body.email</code></td>
   
 
   <td class="type">
@@ -183,7 +206,7 @@
     
 <tr class="deep-level-1">
   
-      <td class="name"><code>password</code></td>
+      <td class="name"><code>body.password</code></td>
   
 
   <td class="type">

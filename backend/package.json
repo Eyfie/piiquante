@@ -1,13 +1,12 @@
 {
-  "name": "backend",
+  "name": "piiquante",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "API used for the piiquante project",
+  "main": "app.js",
   "scripts": {
     "start": "node server",
     "start-dev": "nodemon server",
-    "docs": "jsdoc -c jsdoc.json --readme ./README.md",
-    "generate-docs": "/doc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +15,8 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
+    "express-mongo-sanitize": "^2.2.0",
+    "express-rate-limit": "^6.3.0",
     "fs": "^0.0.1-security",
     "helmet": "4.6",
     "jsonwebtoken": "^8.5.1",
@@ -24,8 +25,6 @@
     "multer": "^1.4.4"
   },
   "devDependencies": {
-    "better-docs": "^2.7.2",
-    "docdash": "^1.2.0",
     "jsdoc": "^3.6.10",
     "nodemon": "^2.0.15"
   }
