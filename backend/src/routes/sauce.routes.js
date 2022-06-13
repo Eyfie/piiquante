@@ -10,7 +10,6 @@ router.get('/', sauce.getAllSauces);
 router.get('/:id', sauce.getSauce);
 router.post('/', uploadImage.single('image'), sauce.createSauce);
 router.put('/:id', isAuth, uploadImage.single('image'), sauce.modifySauce);
-router.post('/:id/like', sauce.likeSauce);
 router.delete('/:id', isAuth, sauce.deleteSauce);
 
 
